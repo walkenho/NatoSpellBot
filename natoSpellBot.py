@@ -1,16 +1,16 @@
 import json
+import logging
+import pathlib
 
 from dotenv import dotenv_values
 from telegram import ParseMode
-from telegram.ext import Updater, CommandHandler
-import logging
+from telegram.ext import CommandHandler, Updater
 
-import pathlib
-DATAPATH = pathlib.Path(__file__).parent/'data'
+DATAPATH = pathlib.Path(__file__).parent / "data"
 
 
 def load_nato_dictionary():
-    with open(DATAPATH/'natoalphabet.json', 'r') as f:
+    with open(DATAPATH / "natoalphabet.json", "r") as f:
         return json.load(f)
 
 
@@ -18,16 +18,21 @@ def start(update, context):
     context.bot.send_message(
         chat_id=update.effective_chat.id,
         text="Hello, I am NatoSpellBot, I have international spelling power! I can spell your text "
-        "using the Nato Alphabet. Use /spell followed by your text to tell me what to spell."
+        "using the Nato Alphabet. Use /spell followed by your text to tell me what to spell.",
     )
 
 
 def nato_spell(tokenlist):
     nato_dict = load_nato_dictionary()
     return (
-            ' '.join(tokenlist)
-            + ':\n'
-            + '\n'.join([word + ' - ' + " ".join([nato_dict[letter] for letter in word.upper()]) for word in tokenlist])
+        " ".join(tokenlist)
+        + ":\n"
+        + "\n".join(
+            [
+                word + " - " + " ".join([nato_dict[letter] for letter in word.upper()])
+                for word in tokenlist
+            ]
+        )
     )
 
 
@@ -41,7 +46,7 @@ def generate_response(update, context):
 
 
 def run_bot():
-    token = dotenv_values('.env')["TOKEN"]
+    token = dotenv_values(".env")["TOKEN"]
 
     updater = Updater(token=token, use_context=True)
     # define shortcut to dispatcher
