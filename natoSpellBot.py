@@ -62,12 +62,13 @@ def run_bot():
 
     logging.info(PORT)
     logging.info(TOKEN)
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN,
-                          webhook_url='https://nato-spellbot.herokuapp.com/' + TOKEN)
+    updater.start_polling()
+    #updater.start_webhook(listen="0.0.0.0",
+    #                      port=int(PORT),
+    #                      url_path=TOKEN,
+    #                      webhook_url='https://nato-spellbot.herokuapp.com/' + TOKEN)
     logging.info("I am running")
-    updater.idle()
+    #updater.idle()
 
 
 if __name__ == "__main__":
