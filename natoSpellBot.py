@@ -61,8 +61,8 @@ def run_bot():
 
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://nato-spellbot.herokuapp.com/' + TOKEN)
+                          url_path=TOKEN,
+                          webhook_url='https://nato-spellbot.herokuapp.com/' + TOKEN)
     updater.idle()
 
 
