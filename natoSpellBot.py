@@ -31,6 +31,7 @@ def nato_spell(tokenlist):
 
 
 def generate_response(update, context):
+    logging.info("Generating Response")
     response = nato_spell(context.args)
     # TODO: convert this into something that can be used to spell somebody's full name and user name
     # print(update.effective_user)
@@ -59,10 +60,13 @@ def run_bot():
     query_handler = CommandHandler("spell", generate_response)
     dispatcher.add_handler(query_handler)
 
+    logging.info(PORT)
+    logging.info(TOKEN)
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN,
                           webhook_url='https://nato-spellbot.herokuapp.com/' + TOKEN)
+    logging.info("I am running")
     updater.idle()
 
 
