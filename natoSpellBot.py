@@ -1,12 +1,14 @@
 import json
 import logging
+import os
 import pathlib
 
-from dotenv import dotenv_values
 from telegram import ParseMode
 from telegram.ext import CommandHandler, Updater
 
 DATAPATH = pathlib.Path(__file__).parent / "data"
+PORT = int(os.environ.get('PORT', 5000))
+TOKEN = os.environ.get("TOKEN")
 
 
 def load_nato_dictionary():
@@ -46,9 +48,8 @@ def start(update, context):
 
 
 def run_bot():
-    token = dotenv_values(".env")["TOKEN"]
 
-    updater = Updater(token=token, use_context=True)
+    updater = Updater(token=TOKEN, use_context=True)
     # define shortcut to dispatcher
     dispatcher = updater.dispatcher
 
@@ -58,7 +59,11 @@ def run_bot():
     query_handler = CommandHandler("spell", generate_response)
     dispatcher.add_handler(query_handler)
 
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://nato-spellbot.herokuapp.com/' + TOKEN)
+    updater.idle()
 
 
 if __name__ == "__main__":
