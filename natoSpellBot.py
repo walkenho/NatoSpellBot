@@ -7,7 +7,7 @@ from telegram import ParseMode
 from telegram.ext import CommandHandler, Updater
 
 DATAPATH = pathlib.Path(__file__).parent / "data"
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', '8443'))
 TOKEN = os.environ.get("TOKEN")
 
 
