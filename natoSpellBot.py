@@ -60,8 +60,7 @@ def run_bot():
     query_handler = CommandHandler("spell", generate_response)
     dispatcher.add_handler(query_handler)
 
-    logging.info(PORT)
-    logging.info(TOKEN)
+    logging.info(f"PORT: {PORT}")
     updater.start_polling()
     #updater.start_webhook(listen="0.0.0.0",
     #                      port=int(PORT),
