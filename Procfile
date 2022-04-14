@@ -1,1 +1,1 @@
-web: python3 natoSpellBot.py
+worker: python3 natoSpellBot.py
